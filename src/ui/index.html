@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="dk-token" content="{{TOKEN}}">
+<meta name="dk-version" content="{{VERSION}}">
+<title>台割工房</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="app">
+  <header class="top">
+    <div class="brand"><img src="/icon.svg" alt=""><span>台割工房</span></div>
+    <input id="title" class="title-input" placeholder="作品タイトル" maxlength="200" spellcheck="false" autocomplete="off">
+    <button id="folder" class="folder" title="このフォルダをエクスプローラで開く"></button>
+    <nav class="tabs" id="tabs">
+      <button data-view="board" class="on" title="順番・進行・空白を管理する">台割</button>
+      <button data-view="read" title="原寸で送る（Enter）">読む</button>
+    </nav>
+    <div class="top-right">
+      <div class="totals" id="totals"></div>
+      <button id="undo" class="icon-btn" title="元に戻す（Ctrl+Z）" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+      </button>
+      <button id="redo" class="icon-btn" title="やり直し（Ctrl+Y）" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg>
+      </button>
+      <button id="btn-export" class="btn" title="台割の順に、別のフォルダへ連番でコピーする">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>書き出し
+      </button>
+      <button id="btn-settings" class="icon-btn" title="設定・隔離した絵・バックアップ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
+      <button id="btn-help" class="icon-btn" title="キー操作の一覧（?）">?</button>
+    </div>
+  </header>
+
+  <div class="strip-wrap">
+    <div id="strip" class="strip" title="進行ストリップ（クリックでそのページへ）"></div>
+    <div id="strip-info" class="strip-info"></div>
+  </div>
+
+  <div id="notices" class="notices"></div>
+
+  <div class="toolbar" id="toolbar">
+    <div class="chips" id="chips"></div>
+    <div class="tool-right">
+      <div class="search">
+        <input id="search" placeholder="検索（/）セリフ・名前・メモ" spellcheck="false" autocomplete="off">
+        <span id="search-count"></span>
+        <button id="search-prev" title="前の一致">▲</button>
+        <button id="search-next" title="次の一致（Enter）">▼</button>
+      </div>
+      <label class="toggle" title="絞り込みに合うページだけを出す"><input type="checkbox" id="only-match">一致だけ</label>
+      <div class="seg" id="view-seg" title="一覧で見せる絵（V で切り替え）"><button data-v="fin">完成</button><button data-v="raw">原画</button></div>
+      <label class="toggle" title="右綴じの見開きで並べる（確認用）"><input type="checkbox" id="spread">見開き</label>
+      <input type="range" id="zoom" min="100" max="360" step="4" title="サムネイルの大きさ（Ctrl+ホイール）">
+    </div>
+  </div>
+
+  <main class="main" id="main">
+    <section id="board-wrap" class="board-wrap">
+      <div id="board" class="board"></div>
+      <div id="drop-mark" class="drop-mark"></div>
+    </section>
+    <aside id="detail" class="detail"></aside>
+  </main>
+</div>
+
+<section id="reader" class="reader" hidden>
+  <div class="r-bar">
+    <button class="btn" id="r-back" title="台割へ戻る（Esc）">← 台割</button>
+    <div class="r-pno" id="r-pno"></div>
+    <div class="r-name" id="r-name"></div>
+    <div class="seg" id="r-which"><button data-v="raw">原画</button><button data-v="fin">完成</button></div>
+    <div class="seg" id="r-mode"><button data-m="single">1枚</button><button data-m="spread">見開き</button><button data-m="compare">見比べ</button></div>
+    <div class="spacer"></div>
+    <div class="statusbar" id="r-status"></div>
+    <button class="btn warn" id="r-exclude" title="台割から外す。ファイルはそのまま（X）">除外</button>
+    <button class="btn danger" id="r-quar" title="「未使用」フォルダへ移す（Shift+X）">隔離</button>
+  </div>
+  <div class="r-stage" id="r-stage"></div>
+  <div class="r-hint" id="r-hint"></div>
+</section>
+
+<div id="menu" class="menu" hidden></div>
+<div id="modal-root"></div>
+<div id="toasts" class="toasts"></div>
+<div id="offline" class="offline" hidden>
+  <div class="box">
+    <b>台割工房の本体とつながりません</b><br>
+    ウィンドウを閉じて、フォルダの「台割.daiwari」を開き直してください。<br>
+    <span style="color:var(--txt-faint);font-size:12px">ここまでの入力は保存されています。</span><br>
+    <button class="btn" id="offline-retry" style="margin-top:10px">もう一度つなぐ</button>
+  </div>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

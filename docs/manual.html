@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>台割工房 取扱説明書</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 18mm; }
+  @page :first { margin: 0; }
+  :root {
+    --ink: #12161d; --ink2: #28303b; --dim: #5a6376; --line: #d9dde4; --soft: #f3f4f7;
+    --paper: #efe8d8; --todo: #4d5665; --art: #6d8dd6; --text: #c6a052; --done: #4dab78; --fix: #d55f4e;
+  }
+  * { box-sizing: border-box; }
+  html { font-family: "Noto Sans CJK JP", "Yu Gothic UI", "Meiryo", sans-serif; color: var(--ink); font-size: 10pt; line-height: 1.75; }
+  body { margin: 0; }
+  .mono, kbd, code { font-family: "Noto Sans Mono CJK JP", "Consolas", monospace; }
+  kbd { display: inline-block; font-size: 8.5pt; line-height: 1.4; padding: 0 5px; border: 1px solid #b9c0cc; border-bottom-width: 2px; border-radius: 4px; background: #fafbfc; color: var(--ink2); margin: 0 1px; }
+  code { font-size: 9pt; background: var(--soft); padding: 0 4px; border-radius: 3px; }
+
+  /* 表紙 */
+  .cover { height: 297mm; width: 210mm; background: radial-gradient(900px 500px at 30% 10%, #1d232c, #0a0c10 70%); color: #e4e8f0; position: relative; page-break-after: always; overflow: hidden; }
+  .cover .in { position: absolute; left: 22mm; right: 22mm; top: 70mm; }
+  .cover img.icon { width: 34mm; height: 34mm; }
+  .cover h1 { font-size: 34pt; letter-spacing: .12em; margin: 10mm 0 2mm; font-weight: 800; }
+  .cover .sub { font-size: 14pt; color: #8d97a9; letter-spacing: .3em; }
+  .cover .ver { margin-top: 16mm; font-size: 10.5pt; color: #8d97a9; line-height: 2; }
+  .cover .ver b { color: var(--paper); }
+  .cover .strip { position: absolute; left: 22mm; right: 22mm; bottom: 34mm; display: flex; gap: 2px; height: 7mm; }
+  .cover .strip i { flex: 1; border-radius: 1px; }
+  .cover .foot { position: absolute; left: 22mm; bottom: 20mm; font-size: 9pt; color: #5a6376; }
+
+  h2 { font-size: 15pt; margin: 0 0 4mm; padding: 2mm 0 2mm 4mm; border-left: 5px solid var(--ink); page-break-after: avoid; letter-spacing: .04em; }
+  h2 small { font-size: 9pt; color: var(--dim); font-weight: 400; margin-left: 3mm; letter-spacing: 0; }
+  h3 { font-size: 11.5pt; margin: 6mm 0 2mm; page-break-after: avoid; }
+  section { page-break-before: always; }
+  section.cont { page-break-before: auto; margin-top: 10mm; }
+  p { margin: 0 0 2.5mm; }
+  ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+  li { margin-bottom: 1mm; }
+  .lead { font-size: 10.5pt; color: var(--ink2); margin-bottom: 5mm; }
+  figure { margin: 3mm 0 5mm; page-break-inside: avoid; }
+  figure img { width: 100%; border: 1px solid #c9ced8; border-radius: 4px; display: block; }
+  figcaption { font-size: 8.5pt; color: var(--dim); margin-top: 1.5mm; }
+  table { width: 100%; border-collapse: collapse; margin: 2mm 0 5mm; font-size: 9.3pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border-bottom: 1px solid var(--line); padding: 1.6mm 2mm; text-align: left; vertical-align: top; }
+  th { background: var(--soft); font-weight: 700; font-size: 9pt; }
+  td:first-child { white-space: nowrap; }
+  .note { background: #fbf7ee; border: 1px solid #eadfc4; border-radius: 4px; padding: 2.5mm 3.5mm; margin: 3mm 0 4mm; font-size: 9.3pt; page-break-inside: avoid; }
+  .note b { color: #8a6a24; }
+  .warn { background: #fdf1ef; border-color: #f0c8c1; }
+  .warn b { color: #b2402f; }
+  .steps { counter-reset: s; list-style: none; padding: 0; }
+  .steps > li { counter-increment: s; position: relative; padding-left: 9mm; margin-bottom: 2.5mm; }
+  .steps > li::before { content: counter(s); position: absolute; left: 0; top: .5mm; width: 6mm; height: 6mm; border-radius: 50%; background: var(--ink); color: #fff; font-size: 8.5pt; font-weight: 700; display: grid; place-items: center; line-height: 1; }
+  .st { display: inline-block; width: 9px; height: 9px; border-radius: 2px; vertical-align: 0; margin-right: 3px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .toc { columns: 2; column-gap: 10mm; font-size: 10pt; line-height: 2.1; padding-left: 0; list-style: none; }
+  .toc li { break-inside: avoid; }
+  .toc b { display: inline-block; width: 8mm; color: var(--dim); font-family: "Noto Sans Mono CJK JP", monospace; }
+  .areas li b { display: inline-block; min-width: 26mm; }
+  .phase { display: grid; grid-template-columns: 22mm 1fr; gap: 1mm 4mm; font-size: 9.5pt; }
+  .phase b { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="in">
+    <img class="icon" src="img/icon.png" alt="">
+    <h1>台割工房</h1>
+    <div class="sub">取扱説明書</div>
+    <div class="ver">版 <b>{{VERSION}}</b>（第1段：いまの台割を丸ごと置き換える土台）<br>{{DATE}}</div>
+  </div>
+  <div class="strip">
+    <i style="background:#4dab78"></i><i style="background:#4dab78"></i><i style="background:#4dab78"></i><i style="background:#4dab78"></i><i style="background:#c6a052"></i><i style="background:#c6a052"></i><i style="background:#d55f4e"></i><i style="background:#6d8dd6"></i><i style="background:#6d8dd6"></i><i style="background:#4d5665"></i><i style="background:#4d5665"></i><i style="background:transparent;box-shadow:inset 0 0 0 1px #4a5564"></i><i style="background:#4d5665"></i><i style="background:#4d5665"></i>
+  </div>
+  <div class="foot">生成画像で作るマンガの、順番・進行・セリフを管理する道具</div>
+</div>
+
+<section style="page-break-before:auto">
+  <h2>もくじ</h2>
+  <ul class="toc">
+    <li><b>1</b>台割工房でできること</li>
+    <li><b>2</b>入れ方</li>
+    <li><b>3</b>開き方・閉じ方</li>
+    <li><b>4</b>画面の見方</li>
+    <li><b>5</b>進行とセリフ</li>
+    <li><b>6</b>ページを選ぶ・並べる</li>
+    <li><b>7</b>空白と待ち受け</li>
+    <li><b>8</b>原画と完成</li>
+    <li><b>9</b>除外と隔離</li>
+    <li><b>10</b>読む（原寸で送る）</li>
+    <li><b>11</b>ファイルの変化への追従</li>
+    <li><b>12</b>書き出し</li>
+    <li><b>13</b>元に戻す・バックアップ</li>
+    <li><b>14</b>いまの台割（v2）からの引っ越し</li>
+    <li><b>15</b>キー操作の一覧</li>
+    <li><b>16</b>困ったとき</li>
+    <li><b>17</b>これから入るもの</li>
+  </ul>
+
+  <h2 style="margin-top:10mm">1. 台割工房でできること</h2>
+  <p class="lead">100ページを超える生成画像マンガを、「順番」「進行」「セリフ」の3つで迷わず回すための道具です。</p>
+  <ul>
+    <li><b>入口はフォルダごとに1つ。</b>画像フォルダの「台割.daiwari」をダブルクリックすると、専用のウィンドウで開きます。閉じれば終わり、入力はその場で保存されています。</li>
+    <li><b>ファイルが変わっても見失いません。</b>フォルダを常に見張り、絵そのもの（画素）の指紋で追いかけます。番付工房でリネームとメタデータ削除をしても、台詞工房で保存しても、ページの紐付けは切れません。</li>
+    <li><b>何をしても戻せます。</b>元に戻す／やり直しと、世代つきの自動バックアップがあります。画像ファイルを消す機能は持っていません。</li>
+    <li><b>セリフ・メモ・修正指示を分けて書けます。</b>PageDown で、入力したまま次のページへ進めます。</li>
+  </ul>
+  <div class="note"><b>自分のPCの中だけで動きます。</b>本体は 127.0.0.1（自分のPC）でだけ待ち受け、起動のたびに合言葉を変えます。外へ何かを送ることはありません。</div>
+</section>
+
+<section>
+  <h2>2. 入れ方</h2>
+  <ol class="steps">
+    <li><b>ZIP の「許可」</b>：ZIP を右クリック →「プロパティ」→ 下のほうの「許可する」にチェック → OK。ネットから落としたファイルの印を外します（外さないと setup.bat が止められることがあります）。</li>
+    <li><b>置き場所</b>：ZIP を展開して「台割工房」フォルダを好きな場所に置きます（例：ドキュメント\ツール\台割工房）。あとで移したときは、移した先で setup.bat をもう一度実行してください。</li>
+    <li><b>setup.bat をダブルクリック</b>：管理者の権限は要りません。次の4つをします。
+      <ul>
+        <li>Python（3.10 以上）と Pillow を確かめ、Pillow が無ければ入れる</li>
+        <li>「台割.daiwari」をダブルクリックで開けるようにする（アイコンも付きます）</li>
+        <li>フォルダの右クリック「送る」と、デスクトップに「台割工房」を足す</li>
+        <li>古い「台割を開く.bat」からも開けるよう、中継を置く</li>
+      </ul>
+    </li>
+  </ol>
+  <table>
+    <tr><th>入っているもの</th><th>中身</th></tr>
+    <tr><td>台割工房.pyw</td><td>本体。画面も処理もこの1ファイル</td></tr>
+    <tr><td>台割工房.ico</td><td>アイコン（各フォルダの 台割.daiwari の絵にも使う）</td></tr>
+    <tr><td>setup.bat ／ uninstall.bat</td><td>初回のセットアップ／関連付けとショートカットを外す</td></tr>
+    <tr><td>取扱説明書.pdf</td><td>この説明書</td></tr>
+    <tr><td>はじめにお読みください.txt</td><td>入れ方と、いまの台割からの引っ越しの要点</td></tr>
+  </table>
+  <p>動く環境：Windows 10 / 11、Python 3.10 以上、Pillow、Microsoft Edge（無ければ既定のブラウザのタブで開きます）。</p>
+
+</section>
+
+<section>
+  <h2>3. 開き方・閉じ方</h2>
+  <table>
+    <tr><th>こんなとき</th><th>こうする</th></tr>
+    <tr><td>初めてのフォルダ</td><td>画像フォルダを右クリック →「送る」→「台割工房」。Windows 11 では、右クリックのいちばん下の「その他のオプション」の中にあります。デスクトップの「台割工房」アイコンにフォルダを落としても同じです。フォルダに「台割.daiwari」ができて開きます。</td></tr>
+    <tr><td>2回目から</td><td>フォルダの「台割.daiwari」をダブルクリック。</td></tr>
+    <tr><td>同じフォルダをもう一度開いた</td><td>開いているウィンドウが前に出るだけです。別のフォルダなら、同時にいくつでも開けます。</td></tr>
+    <tr><td>フォルダを移した・コピーした・名前を変えた</td><td>そのまま開けます。場所はどこにも記録していません。</td></tr>
+    <tr><td>終わるとき</td><td>ウィンドウを閉じるだけ。黒いコンソール窓は出ません。</td></tr>
+  </table>
+  <p>フォルダの中には、次のものができます。</p>
+  <table>
+    <tr><th>名前</th><th>中身</th></tr>
+    <tr><td>台割.daiwari</td><td>管理データ（ページの順・進行・セリフなど。人が読める JSON）。これが入口です</td></tr>
+    <tr><td>.daiwari\</td><td>サムネイル・バックアップ・記録（log.txt）。消しても管理データは失われません（バックアップは消えます）</td></tr>
+    <tr><td>未使用\</td><td>隔離した絵の置き場（番付工房と同じ名前）</td></tr>
+    <tr><td>書き出し\</td><td>書き出しをしたとき、その結果</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>4. 画面の見方</h2>
+  <figure><img src="img/01_board.jpg" alt=""><figcaption>台割の画面。暗い机の上の台割表で、色は進行状況だけが持ちます。選んだページだけ紙のように光ります。</figcaption></figure>
+  <ul class="areas">
+    <li><b>上の帯</b>作品タイトル（クリックで書き換え）、フォルダ名（クリックでエクスプローラ）、「台割」「読む」の切り替え、ページ数と完成の割合、元に戻す／やり直し、書き出し、設定、キー操作の一覧。</li>
+    <li><b>進行ストリップ</b>1ページが1本。色が進行、枠だけのものは空白、斜線は絵が見つからないページです。クリックでそのページへ飛びます。</li>
+    <li><b>絞り込み</b>進行ごとのボタン（空白・待ち受け・新着・見つからない も）、検索（<kbd>/</kbd>）、一致だけ出す、一覧で見せる絵（完成／原画）、見開き、サムネイルの大きさ（<kbd>Ctrl</kbd>+ホイールでも）。</li>
+    <li><b>一覧</b>左上から右へ、P.001 から順に並びます。カードの右上の「原」「完」は、原画と完成があるかどうか（白く塗ってある方が、いま見せている絵）。下にシーン名とセリフの頭、赤い字は修正指示、いちばん下の色の帯が進行、「新」は新しく来た絵です。</li>
+    <li><b>右の編集欄</b>選んだページの進行・プレビュー・ファイル・シーン名・セリフ・メモ・修正指示。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>5. 進行とセリフ</h2>
+  <h3>進行は5段</h3>
+  <table>
+    <tr><th>キー</th><th>進行</th><th>目安</th></tr>
+    <tr><td><kbd>1</kbd></td><td><span class="st" style="background:var(--todo)"></span>未着手</td><td>まだ何もしていない</td></tr>
+    <tr><td><kbd>2</kbd></td><td><span class="st" style="background:var(--art)"></span>画像のみ</td><td>絵は決まった。セリフはまだ</td></tr>
+    <tr><td><kbd>3</kbd></td><td><span class="st" style="background:var(--text)"></span>セリフ入</td><td>台詞工房でセリフを入れた</td></tr>
+    <tr><td><kbd>4</kbd></td><td><span class="st" style="background:var(--done)"></span>完成</td><td>このページは仕上がり</td></tr>
+    <tr><td><kbd>5</kbd></td><td><span class="st" style="background:var(--fix)"></span>要修正</td><td>直すところがある（修正指示に書く）</td></tr>
+  </table>
+  <p>選んでいるページ（何ページでも）に、キーか編集欄のボタン、右クリックの上段の色で付けます。完成の絵（台詞入り）が来ると、未着手・画像のみのページは自動で「セリフ入」になります（設定で切れます）。</p>
+  <h3>文字は3つの欄に分けて書く</h3>
+  <table>
+    <tr><th>欄</th><th>書くこと</th><th>例</th></tr>
+    <tr><td>シーン名</td><td>任意の見出し。カードの下に出ます</td><td>屋上・告白</td></tr>
+    <tr><td>セリフ</td><td>1行に1台詞。話者「台詞」と書いておくと、のちの版で話者を拾えます</td><td>サキ「あのさ」</td></tr>
+    <tr><td>メモ</td><td>ト書き・演出・自分用の覚え書き</td><td>引きの絵。逆光</td></tr>
+    <tr><td>修正指示</td><td>何を直すか。カードに赤い字で出ます</td><td>右手の指が6本</td></tr>
+  </table>
+  <ul>
+    <li>書いたそばから保存されます（1秒以内）。保存のボタンはありません。</li>
+    <li><kbd>PageDown</kbd>／<kbd>PageUp</kbd> で、入力したまま次／前のページの同じ欄へ移れます。台本を上から順に詰めるときに便利です。</li>
+    <li>セリフ欄の右上に字数が出ます（「」の中を数えます）。目安を超えると赤くなります（設定 →「そのほか」で変えられます）。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>6. ページを選ぶ・並べる</h2>
+  <div class="two">
+    <div>
+      <h3>選ぶ</h3>
+      <ul>
+        <li>クリックで1枚、<kbd>Shift</kbd>+クリックで範囲、<kbd>Ctrl</kbd>+クリックで1枚ずつ足す・外す。<kbd>Ctrl</kbd>+<kbd>A</kbd> ですべて。</li>
+        <li>矢印キーで移動（<kbd>Shift</kbd>+矢印で範囲を広げる）、<kbd>Home</kbd>／<kbd>End</kbd> で最初と最後。</li>
+        <li>選んだまとまりに、進行・移動・除外・隔離をまとめて掛けられます。</li>
+      </ul>
+    </div>
+    <div>
+      <h3>並べる</h3>
+      <ul>
+        <li><b>ドラッグ</b>：選んだページをまとめて動かせます。光る線のところへ入ります。</li>
+        <li><b>キー</b>：<kbd>Ctrl</kbd>+<kbd>←</kbd><kbd>→</kbd> で1つずつ、<kbd>Ctrl</kbd>+<kbd>↑</kbd><kbd>↓</kbd> で1段ずつ。</li>
+        <li><b>右クリック →「動かす」</b>：先頭へ・末尾へ・1つ前へ・1つ後ろへ・番号を指定。</li>
+      </ul>
+    </div>
+  </div>
+  <figure><img src="img/03_multi.jpg" alt=""><figcaption>4ページを選んだところ。右の欄から、まとめて進行を付けたり動かしたりできます。</figcaption></figure>
+  <h3>右クリック</h3>
+  <figure><img src="img/02_menu.jpg" alt=""><figcaption>上段に進行の5色、その下を「動かす」「空白」「外す」「開く」にまとめ、細かい項目は横に開きます。</figcaption></figure>
+</section>
+
+<section>
+  <h2>7. 空白と待ち受け</h2>
+  <p>「この間に1枚足りない」と思ったら、先に空白を入れておき、絵ができたらそこへ入れます。</p>
+  <ul>
+    <li><kbd>I</kbd> で後ろに、<kbd>Shift</kbd>+<kbd>I</kbd> で前に空白を入れます。空白にもシーン名・セリフ・メモを書けます。<kbd>Delete</kbd> で空白を消します（絵のあるページは消せません）。</li>
+    <li><b>待ち受け</b>：空白に「待ち受け」の印を付けると、次にフォルダへ来た絵がそこへ入ります。待ち受けが複数あれば、ページの順に埋まります。生成して保存するだけで、台割の決まった場所に入ります。</li>
+    <li><b>ここに絵を入れる…</b>：空白を選んで押すと、一覧から絵を選べます（新しく来た絵が先頭）。選んだ絵のページが空白の場所へ移ります。</li>
+    <li>一覧の絵を、空白の<b>真ん中へドラッグ</b>しても入ります。</li>
+  </ul>
+  <figure><img src="img/04_blank.jpg" alt=""><figcaption>待ち受けの空白（P.020）。フォルダに次の絵が来ると、ここへ入って「新」の印が付きます。</figcaption></figure>
+  <div class="note"><b>エクスプローラから絵を落として取り込む</b>のは第2段で入ります。いまは、画像フォルダへコピーしてください（待ち受けがあればそこへ入ります）。</div>
+</section>
+
+<section>
+  <h2>8. 原画と完成</h2>
+  <p>1ページは1つの「枠」で、原画（生成した元の絵）と完成（セリフを入れた絵）を1枚ずつ持ちます。差し替える前の完成は「旧版」として残ります。</p>
+  <h3>完成の見分け方</h3>
+  <table>
+    <tr><th>こういう絵</th><th>扱い</th></tr>
+    <tr><td>台詞入り\017.png</td><td>台詞工房のフォルダ作業の保存。017.png のページの完成になります</td></tr>
+    <tr><td>017_V2.png、017_V3.png …</td><td>台詞工房のふだんの保存。番号の大きい方が完成、前の版は旧版になります</td></tr>
+    <tr><td>017_s.png など</td><td>末尾が _s・_serif・_fin・_セリフ など（設定 →「完成の見分け」で変えられます）</td></tr>
+  </table>
+  <ul>
+    <li>一覧と「読む」で見せる絵は、完成を優先するか原画を優先するかを選べます（<kbd>V</kbd> で切り替え）。編集欄のプレビューでも「原画／完成」を切り替えられます。</li>
+    <li>組み合わせを直す：右クリック →「外す」→「原画だけ外す」「完成だけ外す」で、その絵をすぐ後ろの別のページに分けます。逆に、1枚ずつのページを2つ選ぶと「2枚を原画と完成の組にする」が出ます。</li>
+    <li>旧版に戻す：編集欄のファイルの一覧で、旧版の「完成に」を押します。</li>
+  </ul>
+
+</section>
+
+<section>
+  <h2>9. 除外と隔離</h2>
+  <table>
+    <tr><th></th><th>除外（<kbd>X</kbd>）</th><th>隔離（<kbd>Shift</kbd>+<kbd>X</kbd>）</th></tr>
+    <tr><td>台割から</td><td>外す</td><td>外す</td></tr>
+    <tr><td>ファイル</td><td>そのまま（フォルダに残る）</td><td>「未使用」フォルダへ移す</td></tr>
+    <tr><td>戻し方</td><td>元に戻す、または 設定 →「除外した絵」</td><td>元に戻す、または 設定 →「隔離した絵」。隔離したときのセリフとメモも戻ります</td></tr>
+  </table>
+  <figure><img src="img/09_settings_quar.jpg" alt=""><figcaption>設定 →「隔離した絵」。番付工房や手で「未使用」へ移した絵も、ここから戻せます。</figcaption></figure>
+</section>
+
+<section>
+  <h2>10. 読む（原寸で送る）</h2>
+  <p><kbd>Enter</kbd>（またはカードのダブルクリック、上の「読む」）で、選んだページを原寸で開きます。送りながら <kbd>1</kbd>〜<kbd>5</kbd> で進行を付け、<kbd>X</kbd> で除外、<kbd>Shift</kbd>+<kbd>X</kbd> で隔離できます。<kbd>Esc</kbd> で台割へ戻ります。</p>
+  <div class="two">
+    <figure><img src="img/05_read.jpg" alt=""><figcaption>1枚。<kbd>→</kbd>／<kbd>PageDown</kbd> で次、<kbd>←</kbd>／<kbd>PageUp</kbd> で前。ホイールでも送れます。</figcaption></figure>
+    <figure><img src="img/06_read_spread.jpg" alt=""><figcaption>見開き（確認用）。右綴じなので右のページが先、<kbd>←</kbd> が次です。1ページ目を単独にするかは設定で。</figcaption></figure>
+  </div>
+  <figure><img src="img/07_read_compare.jpg" alt=""><figcaption>見比べ。原画と完成を左右に並べて、セリフで絵が隠れていないかを確かめられます。</figcaption></figure>
+  <div class="note">一覧も見開きで並べられます（上の「見開き」）。右綴じで、右上から左へ並びます。縦スクロールで続けて読む表示（pixiv での見え方）は第2段で入ります。</div>
+</section>
+
+<section>
+  <h2>11. ファイルの変化への追従</h2>
+  <p>台割工房はフォルダを常に見張り、絵が増えた・消えた・書き換わった・名前が変わったことを、数秒のうちに画面へ出します。名前が残っているあいだは名前で、名前が消えたときだけ絵の中身で追いかけます。</p>
+  <table>
+    <tr><th>こうしたら</th><th>台割工房は</th></tr>
+    <tr><td>フォルダに絵を足した</td><td>待ち受けの空白があればそこへ、無ければ末尾へ。「新」の印を付けます</td></tr>
+    <tr><td>台詞工房のフォルダ作業で保存した</td><td>そのページの完成に入ります</td></tr>
+    <tr><td>台詞工房で「名前_V2.png」と保存した</td><td>「名前.png」のページの完成に入ります。_V3 が来たら _V2 は旧版へ</td></tr>
+    <tr><td>同じ名前で上書きした</td><td>ページはそのまま。絵だけその場で差し替わります</td></tr>
+    <tr><td>名前だけ変えた</td><td>同じ絵として追います（自動）</td></tr>
+    <tr><td>名前を変え、メタデータも消した（番付工房）</td><td>画素が同じなので、同じ絵として追います（自動）</td></tr>
+    <tr><td>名前も絵も変えた（JPEG にした・描き直した）</td><td>似た絵を探して「P.012 の差し替えですか？」と聞きます。違えば新しいページのまま</td></tr>
+    <tr><td>消した・フォルダの外へ移した</td><td>ページは「見つかりません」として残ります。セリフとメモもそのまま。戻せば元通り</td></tr>
+    <tr><td>「未使用」へ自分で移した（番付工房で外した絵も）</td><td>隔離と同じ扱い。設定の一覧から戻せます</td></tr>
+  </table>
+  <figure><img src="img/11_suggest.jpg" alt=""><figcaption>名前も中身も変わった絵が来たとき。似た絵の候補は自動では結び付けず、必ず確かめてもらいます。</figcaption></figure>
+  <p>初めて開くときは、全部の絵を1枚ずつ読んで指紋とサムネイルを作ります（右上に「絵を読み込み中」と出ます。その間も画面は使えます）。2回目からは、変わった絵だけを読みます。</p>
+</section>
+
+<section>
+  <h2>12. 書き出し</h2>
+  <p>上の「書き出し」で、台割の順に別のフォルダへ連番でコピーします。<b>元の画像には触りません。</b></p>
+  <figure><img src="img/10_export.jpg" alt=""><figcaption>書き出しの窓。下に、変わる名前のはじめの数枚が出ます。</figcaption></figure>
+  <table>
+    <tr><th>項目</th><th>選べること</th></tr>
+    <tr><td>使う絵</td><td>完成を優先（無ければ原画）／原画／完成だけ</td></tr>
+    <tr><td>名前</td><td>頭の文字＋番号（桁数と開始番号）。例：放課後の屋上_001.png</td></tr>
+    <tr><td>空白・絵の無いページ</td><td>番号を飛ばす／詰める</td></tr>
+    <tr><td>メタデータ</td><td>生成情報（プロンプト・ワークフローなど）を消す。絵のデータはそのまま</td></tr>
+    <tr><td>台本</td><td>台本.txt も書き出す（ページ番号・新しい名前・シーン名・セリフ。メモと修正指示も入れられます）</td></tr>
+    <tr><td>書き出し先</td><td>画像フォルダの中の「書き出し」に日時つきのフォルダを作る／好きなフォルダを選ぶ</td></tr>
+  </table>
+  <div class="note">台割の順で元のファイルの名前そのものを付け直す「連番リネーム」は、第3段で入ります。</div>
+
+  <h2 style="margin-top:9mm">13. 元に戻す・バックアップ</h2>
+  <ul>
+    <li><kbd>Ctrl</kbd>+<kbd>Z</kbd> で元に戻す、<kbd>Ctrl</kbd>+<kbd>Y</kbd> でやり直し。開いている間なら200手まで戻せます。隔離（ファイルの移動）も戻ります。続けて打った文字は1手にまとまります。</li>
+    <li>除外・隔離などをしたときに出る知らせの「元に戻す」でも戻せます。</li>
+    <li>台割.daiwari は、直近20回分と日ごとの7日分を .daiwari\backup に自動で残します。設定 →「バックアップ」から、その時点へ戻せます（戻したあとでも、元に戻す で今の状態へ帰れます）。</li>
+    <li>台割.daiwari が壊れて読めなかったときは、いちばん新しいバックアップから自動で戻し、画面でお知らせします。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>14. いまの台割（v2）からの引っ越し</h2>
+  <p>何もしなくて大丈夫です。v2 で使っていたフォルダを開くと、自動で引っ越します。</p>
+  <ul>
+    <li>.daiwari.json（v2）を読んで 台割.daiwari（v3）を作ります。元のファイルは .daiwari\backup へ移します。</li>
+    <li>ページの順・原画と完成の組・空白・除外・メモを引き継ぎます。v2 のあとで「台詞入り」に保存した完成も、このとき拾います。</li>
+    <li>v2 のメモは、まず「セリフ」欄に入ります。「」を含む行をセリフ、それ以外をメモに振り分けるかを1回だけ聞きます。</li>
+    <li>v2 の隔離フォルダ「_除外」があれば、中身を「未使用」へまとめるかを1回だけ聞きます。まとめなくても、隔離した絵として扱います。</li>
+    <li>各フォルダの古い「台割を開く.bat」は、そのまま使えます（setup.bat が置いた中継から、台割工房が開きます）。</li>
+  </ul>
+  <figure><img src="img/13_migrate.jpg" alt=""><figcaption>引っ越した直後の画面。上のお知らせから、振り分けとまとめを選べます（どちらもあとで元に戻せます）。</figcaption></figure>
+</section>
+
+<section>
+  <h2>15. キー操作の一覧</h2>
+  <p>どの画面でも、同じキーが同じことをします。矢印は読む向きに合わせ、<kbd>PageDown</kbd>／<kbd>PageUp</kbd> はいつでも次／前です。</p>
+  <table>
+    <tr><th>キー</th><th>動き</th></tr>
+    <tr><td><kbd>PageDown</kbd>／<kbd>PageUp</kbd></td><td>次／前のページ（入力中でも効く。同じ欄のまま次のページへ）</td></tr>
+    <tr><td><kbd>→</kbd>／<kbd>←</kbd></td><td>→ が次、← が前。見開き表示のときだけ、右綴じに合わせて ← が次</td></tr>
+    <tr><td><kbd>↑</kbd>／<kbd>↓</kbd></td><td>上下の段へ（<kbd>Shift</kbd> で範囲を選ぶ）</td></tr>
+    <tr><td><kbd>Home</kbd>／<kbd>End</kbd></td><td>最初／最後のページ</td></tr>
+    <tr><td><kbd>1</kbd>〜<kbd>5</kbd></td><td>進行（未着手・画像のみ・セリフ入・完成・要修正）</td></tr>
+    <tr><td><kbd>Ctrl</kbd>+矢印</td><td>ページを動かす（← → は1つずつ、↑ ↓ は1段ずつ）</td></tr>
+    <tr><td><kbd>I</kbd>／<kbd>Shift</kbd>+<kbd>I</kbd></td><td>後ろ／前に空白</td></tr>
+    <tr><td><kbd>Delete</kbd></td><td>空白を消す</td></tr>
+    <tr><td><kbd>X</kbd>／<kbd>Shift</kbd>+<kbd>X</kbd></td><td>除外（ファイルはそのまま）／隔離（「未使用」へ移す）</td></tr>
+    <tr><td><kbd>V</kbd></td><td>原画と完成の切り替え</td></tr>
+    <tr><td><kbd>Enter</kbd></td><td>原寸で開く（読む）</td></tr>
+    <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd>／<kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>元に戻す／やり直し</td></tr>
+    <tr><td><kbd>Ctrl</kbd>+<kbd>A</kbd></td><td>すべて選ぶ</td></tr>
+    <tr><td><kbd>/</kbd></td><td>検索（<kbd>Enter</kbd> で次の一致、<kbd>Shift</kbd>+<kbd>Enter</kbd> で前）</td></tr>
+    <tr><td><kbd>?</kbd></td><td>キー操作の一覧を出す</td></tr>
+    <tr><td><kbd>Esc</kbd></td><td>入力を抜ける・閉じる・選択を1枚にする・絞り込みを解く</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>16. 困ったとき</h2>
+  <table>
+    <tr><th>こんなとき</th><th>こうしてください</th></tr>
+    <tr><td>setup.bat が止められた</td><td>ZIP の「許可する」にチェックしてから、展開し直してください（2章）。</td></tr>
+    <tr><td>「Pillow が入っていません」と出る</td><td>setup.bat をもう一度実行してください（インターネットにつながっている必要があります）。</td></tr>
+    <tr><td>台割.daiwari をダブルクリックしても開かない</td><td>台割工房のフォルダを移したなら、移した先で setup.bat をもう一度。それでもだめなら、そのフォルダの .daiwari\log.txt をご確認ください。</td></tr>
+    <tr><td>「本体とつながりません」と出た</td><td>ウィンドウを閉じて、台割.daiwari を開き直してください。入力はそれまでに保存されています。</td></tr>
+    <tr><td>表示がフォルダの中身と合わない</td><td>ふだんは自動で見張っています。合わないときだけ、設定 →「そのほか」→「フォルダを読み直す」。</td></tr>
+    <tr><td>ページが2倍に増えた・紐付けが切れた</td><td>まず <kbd>Ctrl</kbd>+<kbd>Z</kbd>。閉じたあとなら、設定 →「バックアップ」から戻せます。</td></tr>
+    <tr><td>外部アプリで開きたい</td><td>設定 →「そのほか」の「外部アプリ」にコマンドを入れると、右クリック →「開く」→「外部アプリで開く」で使えます。空なら Windows の既定のアプリで開きます。</td></tr>
+    <tr><td>やめたい（アンインストール）</td><td>uninstall.bat を実行すると、関連付けとショートカットを外します。各フォルダの 台割.daiwari とバックアップは残ります。</td></tr>
+  </table>
+  <div class="note warn"><b>画像を消す機能はありません。</b>台割工房がファイルを動かすのは「隔離」（未使用へ移す）だけで、これも元に戻せます。書き出しは別のフォルダへコピーするだけです。</div>
+
+  <h2 style="margin-top:9mm">17. これから入るもの</h2>
+  <div class="phase">
+    <b>第2段 台本</b><span>全ページのセリフを1画面で書ける「台本」の画面、話者の自動認識と字数の警告、台本の書き出しと取り込み、エクスプローラからのドロップ取り込み、差し替えと旧版、話・章の区切り、縦スクロール表示</span>
+    <b>第3段 つなぐ</b><span>台詞工房でそのページを直接開く、台割の順で連番リネーム（原画と完成は同じ番号のまま・取り消し可）、生成情報の表示と ComfyUI での開き直し、本棚、段取工房のカット表の取り込み</span>
+  </div>
+</section>
+
+</body>
+</html>

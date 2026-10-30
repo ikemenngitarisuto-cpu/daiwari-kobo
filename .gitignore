@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+tests/out/
+tests/tmp/
+.pytest_cache/
+build/
+dist/
+docs/_manual_render.html
