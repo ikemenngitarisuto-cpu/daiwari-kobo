@@ -1,0 +1,8 @@
+# 配布フォルダの中身は、そのままの形で取り出す（Windows の git でも改行を変えない）
+*.bat  -text
+*.pyw  -text
+*.ico  binary
+*.zip  binary
+*.pdf  binary
+*.jpg  binary
+*.png  binary

@@ -42,7 +42,7 @@ from pathlib import Path
 
 APP_NAME = "台割工房"
 APP_ID = "DaiwariKobo"
-VERSION = "3.0.0"
+VERSION = "3.0.1"
 PROJECT_FILE = "台割.daiwari"     # 各画像フォルダに置く入口（中身は JSON）
 DATA_DIR = ".daiwari"            # サムネイル・バックアップ・記録の置き場
 LEGACY_FILE = ".daiwari.json"    # 現行版（v2）の管理データ
@@ -3499,6 +3499,10 @@ def run_folder(folder: Path, port=0, window=True):
 
 def main(argv=None):
     argv = list(sys.argv[1:] if argv is None else argv)
+    if "--version" in argv:                  # update.bat が版を見せるのに使う
+        if sys.stdout:
+            print(f"{APP_NAME} {VERSION}")
+        return 0
     if "--setup" in argv:
         return setup_main()
     if "--uninstall" in argv:

@@ -130,10 +130,21 @@
     <tr><td>台割工房.pyw</td><td>本体。画面も処理もこの1ファイル</td></tr>
     <tr><td>台割工房.ico</td><td>アイコン（各フォルダの 台割.daiwari の絵にも使う）</td></tr>
     <tr><td>setup.bat ／ uninstall.bat</td><td>初回のセットアップ／関連付けとショートカットを外す</td></tr>
+    <tr><td>update.bat</td><td>最新の版にする（git で取ってきたときだけ使えます）</td></tr>
     <tr><td>取扱説明書.pdf</td><td>この説明書</td></tr>
     <tr><td>はじめにお読みください.txt</td><td>入れ方と、いまの台割からの引っ越しの要点</td></tr>
   </table>
   <p>動く環境：Windows 10 / 11、Python 3.10 以上、Pillow、Microsoft Edge（無ければ既定のブラウザのタブで開きます）。</p>
+
+  <h3>更新のしかた（git で取ってきて、update.bat をダブルクリック）</h3>
+  <p>台割工房は GitHub の非公開リポジトリ <code>daiwari-kobo</code> に置いてあります。git で取ってくると、更新は update.bat のダブルクリックだけで済みます。</p>
+  <ol class="steps">
+    <li><b>Git for Windows を入れる（初回だけ）</b>：PowerShell で <code>winget install --id Git.Git -e</code>、または https://git-scm.com/ のインストーラ。</li>
+    <li><b>取ってくる（初回だけ）</b>：置き場所にしたいフォルダ（例：ドキュメント）で <code>git clone https://github.com/ikemenngitarisuto-cpu/daiwari-kobo.git</code>。初回だけブラウザで GitHub へのサインインを求められ、2回目からは覚えています。</li>
+    <li><b>セットアップ（初回だけ）</b>：できた <code>daiwari-kobo\台割工房\setup.bat</code> をダブルクリック。ZIP で入れていた分は使わなくなり、関連付けがこちらへ付け替わります。</li>
+    <li><b>更新するとき</b>：<code>daiwari-kobo\台割工房\update.bat</code> をダブルクリック。最新を取ってきて版を表示します。開いている台割工房の窓は、いったん全部閉じてから開き直してください。</li>
+  </ol>
+  <div class="note">GitHub Desktop を使うなら、Clone したあと「Fetch origin」→「Pull origin」でも同じです。各画像フォルダの 台割.daiwari と .daiwari は、更新で消えたり変わったりしません。</div>
 
 </section>
 

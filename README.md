@@ -7,13 +7,25 @@
 
 ## 使う人へ
 
-1. [release/台割工房.zip](release/台割工房.zip) を落とす（右上の「…」→ Download）
-2. ZIP のプロパティで「許可する」にチェックしてから展開し、`setup.bat` をダブルクリック
-3. 画像フォルダを右クリック →「送る」→「台割工房」
+リポジトリの [`台割工房/`](台割工房) フォルダが、そのまま使える形です。
 
-くわしくは ZIP の中の「はじめにお読みください.txt」と、[取扱説明書（PDF）](docs/取扱説明書.pdf) をどうぞ。
+**おすすめ：git で取ってきて、更新は update.bat**
 
-## いまの版：3.0.0（第1段）
+初回だけ、Git for Windows を入れて取ってきます（PowerShell で。置き場所にしたいフォルダで実行）。
+
+```
+winget install --id Git.Git -e
+git clone https://github.com/ikemenngitarisuto-cpu/daiwari-kobo.git
+```
+
+1. `daiwari-kobo\台割工房\setup.bat` をダブルクリック（初回だけ。非公開なので clone のときにブラウザで GitHub へのサインインを求められます）
+2. 画像フォルダを右クリック →「送る」→「台割工房」
+3. 更新するときは `daiwari-kobo\台割工房\update.bat` をダブルクリック（GitHub Desktop の「Pull origin」でも同じ）
+
+git を使わないときは [release/台割工房.zip](release/台割工房.zip) を落とし、プロパティで「許可する」にチェックしてから展開してください。
+くわしくは「はじめにお読みください.txt」と [取扱説明書（PDF）](台割工房/取扱説明書.pdf) をどうぞ。
+
+## いまの版：3.0.1（第1段）
 
 いまの台割（v2）を丸ごと置き換える土台です。
 
@@ -40,7 +52,8 @@
 |---|---|
 | `src/daiwari_kobo.py` | 本体（Python 標準ライブラリ＋Pillow）。HTTP は 127.0.0.1 だけ、起動ごとに合言葉 |
 | `src/ui/` | 画面（HTML／CSS／JS）。`build.py` が本体へ埋め込んで1ファイルにする |
-| `build.py` | `dist/台割工房/` と `dist/台割工房.zip`（UTF-8 の名前・bat は ASCII＋CRLF） |
+| `build.py` | そのまま使える `台割工房/` と `release/台割工房.zip`（UTF-8 の名前・bat は ASCII＋CRLF） |
+| `台割工房/` | できあがり（`build.py` が作る。手で直さない） |
 | `tools/` | アイコン・試験用フォルダ・画面写真・説明書の PDF を作る道具 |
 | `tests/` | 中身の試験（pytest）と画面の試験（Playwright） |
 | `docs/` | 説明書の元・画面写真・はじめにお読みください |
@@ -49,7 +62,7 @@
 pip install pillow pytest playwright
 python -m pytest tests                 # 中身と画面の試験
 python build.py --manual               # 説明書の PDF も作り直して配布物を作る
-DAIWARI_APP=dist/台割工房/台割工房.pyw python -m pytest tests/test_e2e.py   # できあがりの1ファイルで画面の試験
+DAIWARI_APP=台割工房/台割工房.pyw python -m pytest tests/test_e2e.py       # できあがりの1ファイルで画面の試験
 ```
 
 試験に使う絵は、すべて `tools/make_sample.py` が機械で描いた架空のものです。

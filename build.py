@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""配布物を作る：dist/台割工房/（本体1ファイル・setup.bat・アイコン・説明書）と dist/台割工房.zip
+"""配布物を作る：リポジトリ直下の「台割工房」フォルダ（そのまま使える形）と release/台割工房.zip
 
   python build.py            # 説明書（PDF）があれば一緒に入れる
   python build.py --manual   # 説明書の PDF も作り直す（Playwright が要る）
+
+「台割工房」フォルダごとリポジトリに入れておくので、git clone したフォルダの setup.bat を1回、
+あとは update.bat（git pull）で最新になります。
 """
 from __future__ import annotations
 
@@ -18,8 +21,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "src" / "daiwari_kobo.py"
 UI = ROOT / "src" / "ui"
-DIST = ROOT / "dist"
 APP = "台割工房"
+OUT = ROOT / APP                # そのまま使える形（リポジトリに入れる）
+RELEASE = ROOT / "release"      # git を使わない人向けの ZIP
+REPO_URL = "https://github.com/ikemenngitarisuto-cpu/daiwari-kobo.git"
 UI_NAMES = ("index.html", "style.css", "app.js", "icon.svg")
 MARK = re.compile(r"^UI_FILES = None  # @@UI_BUNDLE@@.*$", re.M)
 
@@ -114,6 +119,73 @@ pause
 """
 
 
+UPDATE_BAT = r"""@echo off
+setlocal
+cd /d "%~dp0"
+title Daiwari Kobo update
+echo.
+echo  ==========================================
+echo    Daiwari Kobo  update
+echo  ==========================================
+echo.
+where git >nul 2>nul
+if errorlevel 1 (
+  echo  [!] Git was not found on this PC.
+  echo      Install Git for Windows once, for example:
+  echo        winget install --id Git.Git -e
+  echo      Or use GitHub Desktop and press "Pull origin".
+  echo.
+  pause
+  exit /b 1
+)
+git rev-parse --is-inside-work-tree >nul 2>nul
+if errorlevel 1 (
+  echo  [!] This folder was not downloaded with git, so it cannot update itself.
+  echo      Get it once with:
+  echo        git clone @REPO_URL@
+  echo      or download the ZIP from GitHub again.
+  echo.
+  pause
+  exit /b 1
+)
+for /f "delims=" %%H in ('git rev-parse HEAD') do set "OLD=%%H"
+echo  Downloading the latest version ...
+git pull --ff-only
+if errorlevel 1 (
+  echo.
+  echo  [!] The update stopped. Files in this folder may have been edited by hand.
+  echo      Nothing was changed. Download the ZIP from GitHub again if this keeps happening.
+  echo.
+  pause
+  exit /b 1
+)
+for /f "delims=" %%H in ('git rev-parse HEAD') do set "NEW=%%H"
+echo.
+if "%OLD%"=="%NEW%" (
+  echo  Already up to date.
+) else (
+  echo  Updated.
+  echo  Close every Daiwari Kobo window, wait a few seconds, then open your folder again.
+)
+call :showver
+echo.
+pause
+exit /b 0
+
+:showver
+set "PY="
+where py >nul 2>nul
+if not errorlevel 1 set "PY=py -3"
+if not defined PY (
+  where python >nul 2>nul
+  if not errorlevel 1 set "PY=python"
+)
+if not defined PY exit /b 0
+for %%F in ("%~dp0*.pyw") do %PY% "%%~fF" --version
+exit /b 0
+""".replace("@REPO_URL@", REPO_URL)
+
+
 def ascii_crlf(text: str) -> bytes:
     data = text.replace("\r\n", "\n").replace("\n", "\r\n").encode("ascii")   # 日本語が入っていたら止まる
     return data
@@ -140,13 +212,14 @@ def version() -> str:
 
 def build(make_manual=False):
     ver = version()
-    out = DIST / APP
+    out = OUT
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
     (out / f"{APP}.pyw").write_text(bundle(), encoding="utf-8", newline="\n")
     (out / "setup.bat").write_bytes(ascii_crlf(SETUP_BAT))
     (out / "uninstall.bat").write_bytes(ascii_crlf(UNINSTALL_BAT))
+    (out / "update.bat").write_bytes(ascii_crlf(UPDATE_BAT))
     icon = ROOT / "assets" / f"{APP}.ico"
     if not icon.exists():
         subprocess.run([sys.executable, str(ROOT / "tools" / "make_icon.py")], check=True)
@@ -160,7 +233,8 @@ def build(make_manual=False):
         shutil.copy2(pdf, out / "取扱説明書.pdf")
     else:
         print("！ docs/取扱説明書.pdf がまだ無いので、入れずに作ります（python build.py --manual）")
-    zpath = DIST / f"{APP}.zip"
+    RELEASE.mkdir(exist_ok=True)
+    zpath = RELEASE / f"{APP}.zip"
     zpath.unlink(missing_ok=True)
     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
         for f in sorted(out.rglob("*")):

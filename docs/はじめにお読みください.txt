@@ -10,6 +10,7 @@
   台割工房.ico              アイコン（各フォルダの 台割.daiwari の絵にも使います）
   setup.bat                 初回のセットアップ
   uninstall.bat             関連付けとショートカットを外すとき
+  update.bat                最新の版にする（git で取ってきたときだけ）
   取扱説明書.pdf            画面写真つきの説明書
   はじめにお読みください.txt  このファイル
 
@@ -25,6 +26,25 @@
      ・「台割.daiwari」をダブルクリックで開けるようにします
      ・フォルダの右クリック「送る」と、デスクトップに「台割工房」を足します
      ・古い「台割を開く.bat」からも開けるよう、中継を置きます
+
+
+■ 更新のしかた（おすすめ：git で取ってきて、update.bat をダブルクリック）
+  初回だけ
+    1. Git for Windows を入れる（PowerShell で  winget install --id Git.Git -e  か、
+       https://git-scm.com/ のインストーラ）
+    2. 置き場所にしたいフォルダでコマンドを1行（例：ドキュメント）
+         git clone https://github.com/ikemenngitarisuto-cpu/daiwari-kobo.git
+       非公開のリポジトリなので、初回だけブラウザで GitHub へのサインインを求められます。
+       2回目からは覚えています。
+    3. できた daiwari-kobo\台割工房\setup.bat をダブルクリック
+       （ZIP で入れていた分は、もう使いません。関連付けがこちらへ付け替わります）
+  更新するとき
+    daiwari-kobo\台割工房\update.bat をダブルクリック。最新を取ってきて、版を表示します。
+    開いている台割工房の窓は、いったん全部閉じてから開き直してください。
+    各画像フォルダの 台割.daiwari と .daiwari は、更新で消えたり変わったりしません。
+  ほかのやり方
+    ・GitHub Desktop で daiwari-kobo を Clone して、更新は「Fetch origin」→「Pull origin」
+    ・ZIP：GitHub の release\台割工房.zip を落とし、「許可する」→ 展開して上書き
 
 
 ■ 使い方
